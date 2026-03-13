@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Carta</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#ffd6e7;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+}
+
+/* estrellas */
+
+.estrella{
+position:fixed;
+color:white;
+font-size:14px;
+opacity:0.8;
+animation:caer linear infinite;
+}
+
+@keyframes caer{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
+}
+
+/* inicio */
+
+#inicio{
+text-align:center;
+z-index:2;
+}
+
+/* carta */
+
+#carta{
+display:none;
+background:#fff0f5;
+padding:30px;
+border-radius:10px;
+max-width:500px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+z-index:2;
+}
+
+#texto{
+white-space:pre-line;
+line-height:1.6;
+}
+
+.firma{
+text-align:right;
+margin-top:20px;
+}
+
+#corazon{
+font-size:30px;
+cursor:pointer;
+margin-top:10px;
+text-align:center;
+}
+
+/* fondo final */
+
+#mensajeFinal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#ff6fa8;
+color:white;
+font-size:40px;
+justify-content:center;
+align-items:center;
+text-align:center;
+z-index:3;
+overflow:hidden;
+}
+
+/* corazones fondo */
+
+.corazonFondo{
+position:absolute;
+font-size:25px;
+opacity:0.7;
+animation:flotar 6s linear infinite;
+}
+
+@keyframes flotar{
+0%{
+transform:translateY(100vh) scale(1);
+}
+100%{
+transform:translateY(-10vh) scale(1.5);
+}
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="inicio">
+<h2>Tienes una carta</h2>
+<button onclick="abrirCarta()">Abrir carta</button>
+</div>
+
+<div id="carta">
+
+<div id="texto"></div>
+
+<div class="firma">
+Atte: Axel
+</div>
+
+<div id="corazon" onclick="mostrarFinal()">❤️</div>
+
+</div>
+
+<div id="mensajeFinal">
+<div style="position:relative;z-index:5;">
+Muy felices 19 cuchi ❤️
+</div>
+</div>
+
+<script>
+
+/* TEXTO */
+
+const texto = `Hoy ya cumples 19 añitos, me pone feliz verte crecer por 4 años, donde pasamos muchas cosas
+aventuras discusiones risas tristezas empatia literalmente de todo y fueron buenos años al fin y al cabo
+y siempre espero que tu sonrisa y dulzura no se apaguen y continues luchando para vivir la vida que tanto anhelas
+no agaches la cabeza nunca, y lucha para que cada año mejore
+siempre voy a tener fe en ti
+aunque haya días que no estemos bien pero eso es parte de crecer
+"caer y aprender para seguir levantándose"
+siempre avanza porque llegaste muy lejos y estás más cerca de lo que crees
+confía en ti misma
+y aunque no estemos como pareja igual te voy a apoyar en todo momento`;
+
+let i = 0;
+
+/* abrir carta */
+
+function abrirCarta(){
+document.getElementById("inicio").style.display="none";
+document.getElementById("carta").style.display="block";
+escribir();
+}
+
+/* efecto escritura */
+
+function escribir(){
+if(i < texto.length){
+document.getElementById("texto").innerHTML += texto.charAt(i);
+i++;
+setTimeout(escribir,40);
+}
+}
+
+/* pantalla final */
+
+function mostrarFinal(){
+
+document.getElementById("mensajeFinal").style.display="flex";
+
+/* crear corazones */
+
+for(let i=0;i<40;i++){
+
+let corazon=document.createElement("div");
+
+corazon.className="corazonFondo";
+
+corazon.innerHTML="❤️";
+
+corazon.style.left=Math.random()*100+"vw";
+
+corazon.style.animationDuration=(Math.random()*4+3)+"s";
+
+document.getElementById("mensajeFinal").appendChild(corazon);
+
+}
+
+}
+
+/* estrellas */
+
+function crearEstrella(){
+
+let estrella=document.createElement("div");
+
+estrella.className="estrella";
+
+estrella.innerHTML="⭐";
+
+estrella.style.left=Math.random()*100+"vw";
+
+estrella.style.animationDuration=(Math.random()*3+2)+"s";
+
+document.body.appendChild(estrella);
+
+setTimeout(()=>{
+estrella.remove();
+},5000);
+
+}
+
+setInterval(crearEstrella,300);
+
+</script>
+
+</body>
+</html>
